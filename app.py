@@ -11,10 +11,19 @@ import zipfile # Pastikan ini di-import
 # --- KONFIGURASI ID GOOGLE DRIVE ---
 # Menggunakan ID file MURNI (yang sudah kita perbaiki)
 GDRIVE_IDS = {
+    # ID FAISS INDEX: Diambil dari URL 1yAExAsynzmDAIPGfnk0yv96Gb1xkgcBr
     "FAISS_INDEX": "1yAExAsynzmDAIPGfnk0yv96Gb1xkgcBr", 
+    
+    # ID SBERT MODEL ZIP: Diambil dari URL 1ZsEe4FnaQeE88NlzWj8K9sgMKI6zsKlz
     "SBERT_MODEL_ZIP": "1ZsEe4FnaQeE88NlzWj8K9sgMKI6zsKlz", 
+    
+    # ID GENERATOR MODEL ZIP: Diambil dari URL 1jsZgd29BBxxV_I9FW3S6EmKsVtldtJfP
     "GENERATOR_MODEL_ZIP": "1jsZgd29BBxxV_I9FW3S6EmKsVtldtJfP", 
+    
+    # ID DATA FEATURES: Diambil dari URL 1Gi8lNdDy0zTsxdnRiMrdvTnIJwHnVm2A
     "DATA_FEATURES": "1Gi8lNdDy0zTsxdnRiMrdvTnIJwHnVm2A", 
+    
+    # ID TOPIC MAP: Diambil dari URL 1CVLwYRkocqT5O_31SW1LhDFI1tnBrgAl
     "TOPIC_MAP": "1CVLwYRkocqT5O_31SW1LhDFI1tnBrgAl",
 }
 # -----------------------------------
@@ -246,4 +255,5 @@ elif feature == "Generator Judul Tugas Akhir":
             st.success(generated_title.title()) 
             
             st.markdown("---")
+
             st.info("Model generation dilatih dari abstrak ke judul. Judul yang dihasilkan adalah saran yang perlu disempurnakan.")
