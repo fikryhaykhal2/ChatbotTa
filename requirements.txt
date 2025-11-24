@@ -1,0 +1,10 @@
+streamlit
+pandas
+numpy
+torch # Core library untuk PyTorch
+faiss-cpu # Digunakan untuk index retrieval FAISS
+sentence-transformers
+transformers
+scikit-learn # Digunakan untuk metrik dan data splitting
+datasets # Digunakan untuk konversi data ke format Hugging Face Dataset
+gdown # Digunakan untuk mengunduh model/aset besar dari Google Drive
