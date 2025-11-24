@@ -10,14 +10,14 @@ import zipfile # Diperlukan untuk mengekstrak file ZIP
 # import tarfile # Gunakan ini jika Anda menggunakan .tar.gz
 
 # --- KONFIGURASI ID GOOGLE DRIVE (Telah Diperbaiki) ---
-# Menggunakan ID file MURNI, bukan URL lengkap.
 GDRIVE_IDS = {
-    "FAISS_INDEX": "1yAExAsynzmDAIPGfnk0yv96Gb1xkgcBr", 
-    "SBERT_MODEL_ZIP": "1ZsEe4FnaQeE88NlzWj8K9sgMKI6zsKlz", 
-    "GENERATOR_MODEL_ZIP": "1jsZgd29BBxxV_I9FW3S6EmKsVtldtJfP", 
-    "DATA_FEATURES": "1Gi8lNdDy0zTsxdnRiMrdvTnIJwHnVm2A", 
-    "TOPIC_MAP": "1CVLwYRkocqT5O_31SW1LhDFI1tnBrgAl",
+    "FAISS_INDEX": "1yAExAsynzmDAIPGfnk0yv96Gb1xkgcBr", # ID Murni
+    "SBERT_MODEL_ZIP": "1ZsEe4FnaQeE88NlzWj8K9sgMKI6zsKlz", # ID Murni
+    "GENERATOR_MODEL_ZIP": "1jsZgd29BBxxV_I9FW3S6EmKsVtldtJfP", # ID Murni
+    "DATA_FEATURES": "1Gi8lNdDy0zTsxdnRiMrdvTnIJwHnVm2A", # ID Murni
+    "TOPIC_MAP": "1CVLwYRkocqT5O_31SW1LhDFI1tnBrgAl", # ID Murni
 }
+# -----------------------------------
 # -----------------------------------
 
 # --- FUNGSI BARU UNTUK MENGUNDUH ASET ---
