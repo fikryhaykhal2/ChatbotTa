@@ -11,20 +11,17 @@ import zipfile # Pastikan ini di-import
 # --- KONFIGURASI ID GOOGLE DRIVE ---
 # Menggunakan ID file MURNI (yang sudah kita perbaiki)
 GDRIVE_IDS = {
-    # ID FAISS INDEX: Diambil dari URL 1yAExAsynzmDAIPGfnk0yv96Gb1xkgcBr
-    "FAISS_INDEX": "1yAExAsynzmDAIPGfnk0yv96Gb1xkgcBr", 
-    
-    # ID SBERT MODEL ZIP: Diambil dari URL 1ZsEe4FnaQeE88NlzWj8K9sgMKI6zsKlz
-    "SBERT_MODEL_ZIP": "1ZsEe4FnaQeE88NlzWj8K9sgMKI6zsKlz", 
-    
-    # ID GENERATOR MODEL ZIP: Diambil dari URL 1jsZgd29BBxxV_I9FW3S6EmKsVtldtJfP
-    "GENERATOR_MODEL_ZIP": "1jsZgd29BBxxV_I9FW3S6EmKsVtldtJfP", 
-    
-    # ID DATA FEATURES: Diambil dari URL 1Gi8lNdDy0zTsxdnRiMrdvTnIJwHnVm2A
-    "DATA_FEATURES": "1Gi8lNdDy0zTsxdnRiMrdvTnIJwHnVm2A", 
-    
-    # ID TOPIC MAP: Diambil dari URL 1CVLwYRkocqT5O_31SW1LhDFI1tnBrgAl
-    "TOPIC_MAP": "1CVLwYRkocqT5O_31SW1LhDFI1tnBrgAl",
+
+    "FAISS_INDEX": "https://drive.google.com/file/d/1yAExAsynzmDAIPGfnk0yv96Gb1xkgcBr/view?usp=drive_link",
+
+    "SBERT_MODEL_ZIP": "https://drive.google.com/file/d/1ZsEe4FnaQeE88NlzWj8K9sgMKI6zsKlz/view?usp=sharing",
+
+    "GENERATOR_MODEL_ZIP": "https://drive.google.com/file/d/1jsZgd29BBxxV_I9FW3S6EmKsVtldtJfP/view?usp=sharing",
+
+    "DATA_FEATURES": "https://drive.google.com/file/d/1Gi8lNdDy0zTsxdnRiMrdvTnIJwHnVm2A/view?usp=sharing",
+
+    "TOPIC_MAP": "https://drive.google.com/file/d/1CVLwYRkocqT5O_31SW1LhDFI1tnBrgAl/view?usp=sharing",
+
 }
 # -----------------------------------
 
@@ -257,3 +254,4 @@ elif feature == "Generator Judul Tugas Akhir":
             st.markdown("---")
 
             st.info("Model generation dilatih dari abstrak ke judul. Judul yang dihasilkan adalah saran yang perlu disempurnakan.")
+
