@@ -21,52 +21,59 @@ GDRIVE_IDS = {
 # -----------------------------------
 
 # --- FUNGSI BARU UNTUK MENGUNDUH ASET ---
-def download_assets():
-    """Mengunduh model dan index dari Google Drive menggunakan gdown."""
-    st.info("Mengunduh model dan index dari Google Drive...")
+@st.cache_resource
+def load_assets_into_state():
     
-    # 1. Pastikan direktori ada
-    os.makedirs("data", exist_ok=True)
-    os.makedirs("models", exist_ok=True)
+    # JALANKAN FUNGSI DOWNLOAD TERLEBIH DAHULU
+    # Pastikan download_assets() berfungsi dan file ada
+    download_assets() 
     
-    try:
-        # Mengunduh Data dan Mapping (file kecil)
-        if not os.path.exists("thesis_data_features.csv"):
-             gdown.download(id=GDRIVE_IDS["DATA_FEATURES"], output="thesis_data_features.csv", quiet=True)
-        if not os.path.exists("topic_mapping.csv"):
-             gdown.download(id=GDRIVE_IDS["TOPIC_MAP"], output="topic_mapping.csv", quiet=True)
+    # Path Aset
+    DATA_PATH = "thesis_data_features.csv"
+    FAISS_PATH = "data/faiss_index.bin"
+    SBERT_PATH = "models/sbert_model"
+    GENERATOR_PATH = "models/title_generator"
+    TOPIC_MAP_PATH = "topic_mapping.csv"
+    
+    # Pemeriksaan path
+    # ... (Pemeriksaan path di sini) ...
         
-        # Mengunduh Index FAISS
-        if not os.path.exists("data/faiss_index.bin"):
-            gdown.download(id=GDRIVE_IDS["FAISS_INDEX"], output="data/faiss_index.bin", quiet=True)
+    try:
+        # STEP 1: Muat Data Pandas
+        data_df = pd.read_csv(DATA_PATH)
+        topic_labels_df = pd.read_csv(TOPIC_MAP_PATH)
+        topic_labels_map = topic_labels_df.set_index('topic_label_id')['topic_name'].to_dict()
+        st.success("Data Pandas dimuat.")
 
-        # 2. Mengunduh dan Mengekstrak Model SBERT
-        if not os.path.isdir("models/sbert_model"):
-            sbert_zip_path = "models/sbert_model.zip"
-            gdown.download(id=GDRIVE_IDS["SBERT_MODEL_ZIP"], output=sbert_zip_path, quiet=True)
-            
-            # Ekstraksi menggunakan zipfile
-            with zipfile.ZipFile(sbert_zip_path, 'r') as zip_ref:
-                zip_ref.extractall("models/")
-            os.remove(sbert_zip_path) # Hapus file zip setelah diekstrak
-
-        # 3. Mengunduh dan Mengekstrak Model GENERATOR T5
-        if not os.path.isdir("models/title_generator"):
-            generator_zip_path = "models/generator.zip"
-            gdown.download(id=GDRIVE_IDS["GENERATOR_MODEL_ZIP"], output=generator_zip_path, quiet=True)
-            
-            with zipfile.ZipFile(generator_zip_path, 'r') as zip_ref:
-                zip_ref.extractall("models/")
-            os.remove(generator_zip_path) # Hapus file zip setelah diekstrak
-
-
-        st.success("Pengunduhan dan Ekstraksi Aset Selesai.")
+        # STEP 2: Muat Index FAISS
+        faiss_index = faiss.read_index(FAISS_PATH)
+        st.success("Index FAISS dimuat.")
+        
+        # STEP 3: Muat Model SBERT (Jika gagal, errornya ada di sini)
+        sbert_model_loaded = SentenceTransformer(SBERT_PATH) 
+        st.success("Model SBERT dimuat.")
+        
+        # STEP 4: Muat Model Generasi (Jika gagal, errornya ada di sini)
+        title_generator_pipe_loaded = pipeline("text2text-generation", 
+                                       model=GENERATOR_PATH, 
+                                       tokenizer=GENERATOR_PATH,
+                                       trust_remote_code=True)
+        st.success("Model Generator dimuat.")
+        
+        # Simpan SEMUA aset ke st.session_state
+        st.session_state['data'] = data_df
+        st.session_state['index'] = faiss_index
+        st.session_state['sbert_model'] = sbert_model_loaded
+        st.session_state['title_generator_pipe'] = title_generator_pipe_loaded
+        st.session_state['topic_labels'] = topic_labels_map
+        st.session_state['assets_loaded'] = True
         
     except Exception as e:
-        # Error yang ditangkap di sini akan ditampilkan di Streamlit Cloud
-        st.error(f"Gagal mengunduh/mengekstrak aset. Pastikan izin Google Drive diatur ke 'Siapa saja yang memiliki link'. Error: {e}")
-        raise e 
-
+        # TAMPILKAN ERROR EKSPISIT KE KONSEL STREAMLIT
+        print(f"DEBUGGING ERROR: Kegagalan terjadi saat memuat model. Detail: {e}")
+        st.session_state['assets_loaded'] = False
+        st.session_state['error_detail'] = str(e)
+        st.stop() # Hentikan eksekusi setelah mencetak error
 
 # --- 1. Konfigurasi dan Memuat Aset ---
 @st.cache_resource
